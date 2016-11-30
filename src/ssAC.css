@@ -1,0 +1,31 @@
+﻿div.SSAC {
+    max-height: 300px;
+    position: absolute;
+    padding: 0;
+    overflow-y: scroll;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+div.SSAC ul {
+    list-style-type: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+div.SSAC li {
+    list-style-type: none;
+    padding: 4px 0px 4px 15px;
+    border-bottom: 1px solid white;
+    border-top: 1px solid white;
+}
+
+div.SSAC li:hover {
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+}
+
+div.SSAC li.ssSI {
+    background-color: #f6d0ac;
+}
