@@ -5,8 +5,8 @@ As the name says, this is a SUPER SIMPLE autocomplete.  Not just in how it funct
 
 It requires jQuery and jQuery UI (although I am going to drop the requirement for UI as soon as I can).
 
-It simply converts a <select></select> in to an autocomplete list.
-If your select starts with a blank <option></option> you will have the ability to clear the selection.
+It simply converts a [select][/select] in to an autocomplete list.
+If your select starts with a blank [option][/option] you will have the ability to clear the selection.
 
 There are currently NO options for ssAC:
 * It looks how I want it to look.
