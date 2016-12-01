@@ -46,7 +46,7 @@
     //textbox click - open list
     $(_self.ssTB).on('click', function () {
       $(_self.ssDIV).show().position({ my: "left top+5", at: "left bottom", of: _self.ssTB })
-      _self.SITV();
+      ScrollIntoView(_self);
     })
 
     //textbox - ignore left and right arrows due to unwanted caret movement in textbox
@@ -61,16 +61,16 @@
       //UP & DOWN if list NOT showing
       if ((e.keyCode === 38 || e.keyCode === 40) && !$(_self.ssDIV).is(":visible")) {
         $(_self.ssDIV).show().position({ my: "left top+5", at: "left bottom", of: _self.ssTB });
-        _self.SITV();
+        ScrollIntoView(_self);
       }
       else if (e.keyCode === 38) { //arrow up
-        _self.MOVE(-1);
+        MOVE(_self, -1);
       }
       else if (e.keyCode === 40) { //arrow down
-        _self.MOVE(1);
+        MOVE(_self, 1);
       }
       else if (e.keyCode === 13 || e.keyCode === 27) { //ENTER & TAB
-        _self.SelectIndex(0);
+        SelectIndex(_self, 0);
         $(_self.ssDIV).hide();
       }
       else if (e.keyCode === 9 || e.keyCode === 37 || e.keyCode === 39 || e.keyCode === 16 || e.keyCode === 17 || e.keyCode === 18) {
@@ -79,7 +79,7 @@
       else {
         if (e.keyCode !== 46) {
           $(_self.ssDIV).show().position({ my: "left top+5", at: "left bottom", of: _self.ssTB })
-          _self.SITV();
+          ScrollIntoView(_self);
         }
         var searchString = $(_self.ssTB).val().toLowerCase();
         var searchLength = searchString.length;
@@ -87,7 +87,7 @@
         //filter (anywhere or start)
         if (settings.startsWith) {
           fList = $(_self.ssDIV).find("li").filter(function () {
-            return $(this).text().slice(0, searchLength).toLowerCase() == searchString;
+            return $(this).text().slice(0, searchLength).toLowerCase() === searchString;
           });
         }
         else {
@@ -97,7 +97,7 @@
         $(_self.ssDIV).find('li').hide();
         fList.show();
         _self.selectedLI = fList.first();
-        _self.SelectIndex(1);
+        SelectIndex(_self, 1);
       }
       e.preventDefault();
     })
@@ -105,14 +105,14 @@
     //textbox - blur event (hide div list)
     $(_self.ssTB).on('blur', function (e) {
       $(_self.ssDIV).hide();
-      _self.SelectIndex(0);
+      SelectIndex(_self, 0);
       $(_self.ssDIV).find('li[value]').show();
     })
 
     //click list item in DIV (delegate)
     $(_self.ssDIV).on('mousedown', 'li', function (e) {
       _self.selectedLI = $(this);
-      _self.SelectIndex(0);
+      SelectIndex(_self, 0);
       $(_self.ssDIV).hide();
     });
 
@@ -120,10 +120,10 @@
     // FUNCTIONS //
     ///////////////
     //MOVE
-    this.MOVE = function (n) {
+    function MOVE(_self, n) {
       if ($(_self.ssDIV).find('li:visible').length <= 1) { return; }
 
-      if (_self.liIndex() === -1) {
+      if (liIndex(_self) === -1) {
         if (n > 0) { _self.selectedLI = $(_self.ssDIV).find('li:visible').first(); }
         else { _self.selectedLI = $(_self.ssDIV).find('li:visible').last(); }
         _self.SelectIndex(1);
@@ -131,26 +131,26 @@
       }
       else if (n > 0) {
         _self.selectedLI = $(_self.selectedLI).nextAll(':visible').first();
-        if (_self.liIndex() === -1) { _self.selectedLI = $(_self.ssDIV).find('li:visible').first(); }
+        if (liIndex(_self) === -1) { _self.selectedLI = $(_self.ssDIV).find('li:visible').first(); }
       }
       else if (n < 0) {
         _self.selectedLI = $(_self.selectedLI).prevAll(':visible').first();
-        if (_self.liIndex() === -1) { _self.selectedLI = $(_self.ssDIV).find('li:visible').last(); }
+        if (liIndex(_self) === -1) { _self.selectedLI = $(_self.ssDIV).find('li:visible').last(); }
       }
-      _self.SelectIndex(1);
+      SelectIndex(_self, 1);
     }
 
     //SELECT INDEX
-    this.SelectIndex = function (i) {
+    function SelectIndex(_self, i) {
       $(_self.ssDIV).find('li').removeClass('ssSI');
       $(_self.selectedLI).addClass('ssSI');
-      $(_self.ssSL).val(_self.liValue());
-      if (i !== 1) $(_self.ssTB).val(_self.liText());
-      _self.SITV();
+      $(_self.ssSL).val(liValue(_self));
+      if (i !== 1) $(_self.ssTB).val(liText(_self));
+      ScrollIntoView(_self);
     }
 
     //scroll in to view
-    this.SITV = function () {
+    function ScrollIntoView(_self) {
       $(_self.ssDIV).find('li:empty').hide();
       var div = $(_self.ssDIV);
       var sli = $(_self.selectedLI);
@@ -164,17 +164,17 @@
     }
 
     //get selected text
-    this.liText = function () {
+    function liText(_self) {
       if (_self.selectedLI === null) { return ""; }
       else { return $(_self.selectedLI[0]).text(); }
     }
     //get selected value
-    this.liValue = function () {
+    function liValue(_self) {
       if (_self.selectedLI === null) { return ""; }
       else { return $(_self.selectedLI[0]).attr("value"); }
     }
     //get selected index
-    this.liIndex = function () {
+    function liIndex(_self) {
       if (_self.selectedLI === null) { return -1; }
       else { return $(_self.ssDIV).find(_self.selectedLI[0]).index('li'); }
     }
@@ -183,7 +183,7 @@
     if ($(_self.ssSL).find('[selected]').length) {
       var value = $(_self.ssSL).find('[selected]').val();
       _self.selectedLI = $(_self.ssDIV).find("li[value='" + value + "']");
-      _self.SelectIndex(0);
+      SelectIndex(_self, 0);
     }
 
     return this;
