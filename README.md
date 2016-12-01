@@ -8,8 +8,8 @@ It requires jQuery and jQuery UI (although I am going to drop the requirement fo
 It simply converts a [select][/select] in to an autocomplete list.
 If your select starts with a blank [option][/option] you will have the ability to clear the selection.
 
-There are currently NO options for ssAC:
-* It looks how I want it to look.
-* It functions how I want it to function.
+There are currently TWO options for ssAC:
+* startsWith - if true looks at the start of the options.
+* width - you can override the automatic width selection
 
 YOU can make it look and function how you want to. The code is, after all, "SUPER SIMPLE".
