@@ -10,8 +10,8 @@
 
     //init global variables
     var _self = this;
-    this.selectedLI = null;
-    this.ssSL = $(this);
+    _self.selectedLI = null;
+    _self.ssSL = $(this);
     // This is the easiest way to have default options.
     var settings = $.extend({
       startsWith: false,
@@ -23,8 +23,10 @@
     ////////////////////////////////
 
     //configure text box
-    this.ssTB = $.parseHTML("<input type='text' style='" + _self.ssSL.attr("style") + "' class='" + _self.ssSL.attr("class") + "' />")
-    $(this.ssTB).css("width", settings.width); //force correct width if not stipulated
+    this.ssTB = $.parseHTML("<input type='text' />")
+    $(_self.ssTB).attr("class", _self.ssSL.attr("class"));
+    $(_self.ssTB).attr("style", _self.ssSL.attr("style"));
+    $(_self.ssTB).css("width", settings.width); //force correct width if not stipulated
     _self.ssSL.after(_self.ssTB);
     _self.ssSL.hide(); //hide select list
 
@@ -32,10 +34,11 @@
     var li = "";
     _self.ssSL.find('option').each(function (i, v) {
       var value = $(v);
-      li = li + "<li value='" + value.val() + "'>" + value.text() + "</li>";
+      li += "<li value='" + value.val() + "'>" + value.text() + "</li>";
     })
+    var ul = "<ul>" + li + "</ul>";
     //create DIV list
-    this.ssDIV = $.parseHTML("<div class='SSAC' style='width:" + settings.width + "px'><ul>" + li + "</ul></div>");
+    _self.ssDIV = $.parseHTML("<div class='SSAC' style='width:" + settings.width + "px'>" + ul + "</div>");
     _self.ssSL.after(_self.ssDIV);
     $(_self.ssDIV).hide();
 
@@ -106,7 +109,7 @@
     $(_self.ssTB).on('blur', function (e) {
       $(_self.ssDIV).hide();
       SelectIndex(_self, 0);
-      $(_self.ssDIV).find('li[value]').show();
+      $(_self.ssDIV).find('li').show();
     })
 
     //click list item in DIV (delegate)
