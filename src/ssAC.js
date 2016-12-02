@@ -64,6 +64,7 @@
       //UP & DOWN if list NOT showing
       if ((e.keyCode === 38 || e.keyCode === 40) && !$(_self.ssDIV).is(":visible")) {
         $(_self.ssDIV).show().position({ my: "left top+5", at: "left bottom", of: _self.ssTB });
+        if (_self.selectedLI === null) { _self.selectedLI = $(_self.ssDIV).find('li:visible').first(); }
         ScrollIntoView(_self);
       }
       else if (e.keyCode === 38) { //arrow up
@@ -129,7 +130,7 @@
       if (liIndex(_self) === -1) {
         if (n > 0) { _self.selectedLI = $(_self.ssDIV).find('li:visible').first(); }
         else { _self.selectedLI = $(_self.ssDIV).find('li:visible').last(); }
-        _self.SelectIndex(1);
+        SelectIndex(1);
         return;
       }
       else if (n > 0) {
@@ -158,12 +159,8 @@
       var div = $(_self.ssDIV);
       var sli = $(_self.selectedLI);
       if (sli.position() === undefined) return;
-
-      if (sli.position()["top"] + sli.height() > div.height() + div.scrollTop()) {
-        div.animate({ scrollTop: sli.position()["top"] - div.height() + sli.height() * 2 }, 100)
-      } else if (sli.position()["top"] < div.scrollTop()) {
-        div.animate({ scrollTop: sli.position()["top"] }, 100)
-      }
+      var NewTop = sli.position()["top"] + sli.height()*2 - div.height() + div.scrollTop();
+      div.scrollTop(NewTop);
     }
 
     //get selected text
