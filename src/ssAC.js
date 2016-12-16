@@ -7,6 +7,9 @@
     $.expr[':'].containsIC = function (n, i, m) {
       return jQuery(n).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
     };
+    
+    //ensure that if in a jQuery UI it will "overflow"
+    $(".ui-dialog-content").css("overflow", "visible");
 
     //init global variables
     var _self = this;
