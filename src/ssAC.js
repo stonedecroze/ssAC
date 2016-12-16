@@ -7,7 +7,7 @@
     $.expr[':'].containsIC = function (n, i, m) {
       return jQuery(n).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
     };
-    
+
     //ensure that if in a jQuery UI it will "overflow"
     $(".ui-dialog-content").css("overflow", "visible");
 
@@ -58,9 +58,8 @@
 
     //textbox - ignore left and right arrows due to unwanted caret movement in textbox
     $(_self.ssTB).on('keydown', function (e) {
-      if (e.keyCode === 38 || e.keyCode === 40) {
-        e.preventDefault();
-      }
+      if (e.keyCode === 38) { MOVE(-1); e.preventDefault();}
+      else if (e.keyCode === 40) { MOVE(1); e.preventDefault();}      
     })
 
     //textbox - handle keys
@@ -68,14 +67,9 @@
       //UP & DOWN if list NOT showing
       if ((e.keyCode === 38 || e.keyCode === 40) && !$(_self.ssDIV).is(":visible")) {
         $(_self.ssDIV).show().position({ my: "left top+5", at: "left bottom", of: _self.ssTB });
-        //if (_self.selectedLI === null) { _self.selectedLI = $(_self.ssDIV).find('li:visible').first(); }
-        //ScrollIntoView();
       }
-      else if (e.keyCode === 38) { //arrow up
-        MOVE(-1);
-      }
-      else if (e.keyCode === 40) { //arrow down
-        MOVE(1);
+      else if (e.keyCode === 38 || e.keyCode === 40) {
+        e.preventDefault();
       }
       else if (e.keyCode === 13 || e.keyCode === 27) { //ENTER & TAB
         SelectIndex(0);
