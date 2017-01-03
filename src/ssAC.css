@@ -1,4 +1,44 @@
-﻿div.SSAC {
+﻿
+.ssAutoComplete{
+  background-color:palevioletred;
+}
+
+.ssAutoComplete > div:first-of-type{
+  position:relative;
+  background-color:#ff6a00;
+  overflow-x:hidden;
+  padding-left:15px;
+}
+
+.ssAutoComplete > div:first-of-type > div:first-of-type{
+  background-color:palegreen;
+  position:absolute;
+  top:0;
+  width:100%;
+  padding:4px 0 4px 0px;
+}
+
+.ssAutoComplete > div:first-of-type > div:nth-of-type(2){
+  background-color:palegoldenrod;
+  height:300px;
+  overflow-y:scroll;
+}
+
+.ssAutoComplete ul{
+  margin:0;
+  padding:0;
+  list-style-type: none;
+}
+
+.ssAutoComplete li{
+  padding:4px 0 4px 0px;
+}
+
+
+
+
+
+div.SSAC {
 	max-height: 300px;
 	position: absolute;
 	padding: 0;
