@@ -15,6 +15,7 @@
     var _self = this;
     _self.selectedLI = null;
     _self.ssSL = $(this);
+    _self.ssSL.hide(); //hide select list
     // This is the easiest way to have default options.
     var settings = $.extend({
       startsWith: false,
@@ -29,22 +30,27 @@
     this.ssTB = $.parseHTML("<input type='text' />")
     $(_self.ssTB).attr("class", _self.ssSL.attr("class"));
     $(_self.ssTB).attr("style", _self.ssSL.attr("style"));
-    $(_self.ssTB).css("width", settings.width); //force correct width if not stipulated
-    _self.ssSL.after(_self.ssTB);
-    _self.ssSL.hide(); //hide select list
+    $(_self.ssTB).css("width", "100%").show(); //force correct width if not stipulated
 
-    //convert OPTION to LI
+    //convert OPTIONS to UL > LI
     var li = "";
     _self.ssSL.find('option').each(function (i, v) {
       var value = $(v);
       li += "<li value='" + value.val() + "'>" + value.text() + "</li>";
     })
-    var ul = "<ul>" + li + "</ul>";
-    //create DIV list, NB "relative" div is to ensure POSITION works the same in all instances
-    _self.ssDIV = $.parseHTML("<div class='SSAC' style='width:" + settings.width + "px'><div style='position:relative;'>" + ul + "</div></div>");
+    _self.ssDIV = $.parseHTML('<div class="ssAutoComplete" style="width:' + settings.width + 'px">'
+    + '<div><div class="ssAC-clear">clear ...</div><div>'
+    + '<ul>' + li + '</ul>'
+    + '</div></div></div>');
+
+    if ($(this).find('option:not([value])').length === 0) {
+      $(_self.ssDIV).find('.ssAC-clear').hide();
+    }
+    $(_self.ssDIV).prepend(_self.ssTB);
     _self.ssSL.after(_self.ssDIV);
-    $(_self.ssDIV).hide();
-    $(_self.ssDIV).find('li:empty').addClass("ssACHE");//hide empty li
+
+    //console.log($(_self.ssDIV).find('li:containsIC("Gu")').not(':empty') );
+
 
     ////////////
     // EVENTS //
@@ -64,6 +70,7 @@
 
     //textbox - handle keys
     $(_self.ssTB).on('keyup', function (e) {
+      
       //UP & DOWN if list NOT showing
       if ((e.keyCode === 38 || e.keyCode === 40) && !$(_self.ssDIV).is(":visible")) {
         $(_self.ssDIV).show().position({ my: "left top+5", at: "left bottom", of: _self.ssTB });

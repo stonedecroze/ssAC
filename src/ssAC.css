@@ -3,24 +3,30 @@
   background-color:palevioletred;
 }
 
+.ssAutoComplete input{
+  box-sizing: border-box;
+}
+
 .ssAutoComplete > div:first-of-type{
   position:relative;
-  background-color:#ff6a00;
+  background-color:pink;
+  padding:0 0 0 15px;
   overflow-x:hidden;
-  padding-left:15px;
 }
 
 .ssAutoComplete > div:first-of-type > div:first-of-type{
   background-color:palegreen;
+  box-sizing: border-box;
   position:absolute;
   top:0;
+  left:-15px;
   width:100%;
-  padding:4px 0 4px 0px;
+  padding:4px 0 4px 30px;
 }
 
 .ssAutoComplete > div:first-of-type > div:nth-of-type(2){
   background-color:palegoldenrod;
-  height:300px;
+  max-height:300px;
   overflow-y:scroll;
 }
 
