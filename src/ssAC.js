@@ -16,6 +16,8 @@
     _self.selectedLI = null;
     _self.ssSL = $(this);
     _self.ssSL.hide(); //hide select list
+    _self.UpOffset = 0;
+    _self.DownOffset = 0;
     // This is the easiest way to have default options.
     var settings = $.extend({
       startsWith: false,
@@ -55,17 +57,9 @@
     $(_self.ssDIV).append(_self.ssDivALL); //add ALL to overall DIV
     $(_self.ssTB).show().after(_self.ssDIV);//add to DOM
 
-    this.ScrollOffset = 0;
-    if ($(_self.ssUL).find('li:empty').length > 0) {
-      _self.UpOffset = 8; //padding
-      _self.DownOffset = 0; //no padding
-    }
-    else {
-      _self.UpOffset = -$(_self.ssUL).find('li').height(); //no padding
-      _self.DownOffset = $(_self.ssUL).find('li').height() + 8; //padding
-    }
     $(this.ssDIV).hide();
-    //console.log(_self.ScrollOffset);
+
+    //console.log($(_self.ssUL).find('li:empty'));
 
 
     ////////////
@@ -83,6 +77,7 @@
     //textbox click - open list
     $(_self.ssTB).on('click', function () {
       $(_self.ssDIV).show().position({ my: "left top+5", at: "left bottom", of: _self.ssTB })
+      SetScrollOffSet();
       ScrollIntoView(_self);
     })
 
@@ -98,6 +93,7 @@
       //UP & DOWN if list NOT showing
       if ((e.keyCode === 38 || e.keyCode === 40) && !$(_self.ssDIV).is(":visible")) {
         $(_self.ssDIV).show().position({ my: "left top+5", at: "left bottom", of: _self.ssTB });
+        SetScrollOffSet();
       }
       else if (e.keyCode === 38 || e.keyCode === 40) {
         e.preventDefault();
@@ -159,6 +155,18 @@
     // FUNCTIONS //
     ///////////////
 
+    //Set scroll offsets
+    function SetScrollOffSet() {
+      if ($(_self.ssUL).find('li:empty').length > 0) {
+        _self.UpOffset = 8; //padding
+        _self.DownOffset = 0; //no padding
+      }
+      else {
+        _self.UpOffset = -$(_self.ssUL).find('li').height(); //no padding
+        _self.DownOffset = $(_self.ssUL).find('li').height() + 8; //padding
+      }
+    }
+
     //MOVE
     function MOVE(n) {
       if ($(_self.ssDIV).find('li:visible').length <= 1) { return; }
@@ -192,6 +200,7 @@
     //scroll in to view
     function ScrollIntoView() {
       if ($(_self.selectedLI).position() === undefined) return;
+
       var divHeight = $(_self.ssDivUL).height()
       var sliTop = $(_self.selectedLI).position().top;
       var rowHeight = $(_self.selectedLI).height();//add padding
