@@ -1,33 +1,52 @@
-﻿div.SSAC {
-	max-height: 300px;
-	position: absolute;
-	padding: 0;
-	overflow-y: scroll;
-	background-color: white;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-    z-index:999;
+﻿
+.ssAutoComplete{
+  position:absolute;
 }
 
-div.SSAC ul {
-	list-style-type: none;
-	padding: 0;
-	margin:0;
-	cursor: pointer;
+.ssALL{
+  position:absolute;
+  background-color:white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width:100%;
+  z-index:999; /*show above jQueryUi dialogue buttons*/
 }
 
-div.SSAC li {
-    list-style-type: none;
-    padding: 4px 0px 4px 15px;
-    border-bottom: 1px solid white;
-    border-top: 1px solid white;
+.ssAC-clear{
+  background-color:#eee;
+  box-sizing: border-box;
+  width:100%;
+  padding:4px 0 4px 15px;
+  cursor:pointer;
 }
 
-div.SSAC li:hover {
+.ssDivUL{
+  max-height:300px;
+  overflow-y:scroll;
+}
+
+.ssAutoComplete ul{
+  margin:0;
+  padding:0;
+  list-style-type: none;
+  cursor:pointer;
+}
+
+.ssAutoComplete li{
+  padding:4px 0 4px 15px;
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+}
+
+.ssAutoComplete li:hover {
     border-bottom: 1px solid #ccc;
     border-top: 1px solid #ccc;
 }
 
-div.SSAC li.ssSI {
+.ssAutoComplete li.ssSI {
     background-color: #f6d0ac;
+}
+
+.ssAutoComplete li:empty{
+  display:none;
 }
