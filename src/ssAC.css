@@ -1,27 +1,26 @@
 ﻿
 .ssAutoComplete{
   background-color:palevioletred;
+  position:absolute;
 }
 
-.ssAutoComplete input{
-  box-sizing: border-box;
-}
+/*.ssAutoComplete input{
+}*/
 
 .ssAutoComplete > div:first-of-type{
-  position:relative;
+  position:absolute;
   background-color:pink;
-  padding:0 0 0 15px;
-  overflow-x:hidden;
+  /*overflow-x:hidden;*/
 }
 
 .ssAutoComplete > div:first-of-type > div:first-of-type{
-  background-color:palegreen;
+  background-color:#eee;
   box-sizing: border-box;
-  position:absolute;
-  top:0;
-  left:-15px;
+  /*top:0;
+  left:-16px;*/
   width:100%;
-  padding:4px 0 4px 30px;
+  padding:4px 0 4px 15px;
+  cursor:pointer;
 }
 
 .ssAutoComplete > div:first-of-type > div:nth-of-type(2){
@@ -34,11 +33,30 @@
   margin:0;
   padding:0;
   list-style-type: none;
+  cursor:pointer;
 }
 
 .ssAutoComplete li{
-  padding:4px 0 4px 0px;
+  padding:4px 0 4px 15px;
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
 }
+
+.ssAutoComplete li:hover {
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+}
+
+.ssAutoComplete li.ssSI {
+    background-color: #f6d0ac;
+}
+
+.ssAutoComplete li:empty{
+  display:none;
+}
+
+
+
 
 
 

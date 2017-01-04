@@ -27,10 +27,11 @@
     ////////////////////////////////
 
     //configure text box
-    this.ssTB = $.parseHTML("<input type='text' />")
+    this.ssTB = $.parseHTML("<input type='text' />");
     $(_self.ssTB).attr("class", _self.ssSL.attr("class"));
     $(_self.ssTB).attr("style", _self.ssSL.attr("style"));
     $(_self.ssTB).css("width", "100%").show(); //force correct width if not stipulated
+    $(_self.ssSL).after(_self.ssTB);
 
     //convert OPTIONS to UL > LI
     var li = "";
@@ -38,16 +39,27 @@
       var value = $(v);
       li += "<li value='" + value.val() + "'>" + value.text() + "</li>";
     })
-    _self.ssDIV = $.parseHTML('<div class="ssAutoComplete" style="width:' + settings.width + 'px">'
-    + '<div><div class="ssAC-clear">clear ...</div><div>'
-    + '<ul>' + li + '</ul>'
-    + '</div></div></div>');
+
+    this.ssDIV = $.parseHTML('<div class="ssAutoComplete" style="width:' + settings.width + 'px" />');
+    this.ssDivALL = $.parseHTML('<div/>');
+    this.ssDivUL = $.parseHTML('<div/>');
+    this.ssUL = $.parseHTML('<ul/>');
+    this.ssClear = $.parseHTML('<div class="ssAC-clear">clear ...</div>');
+    //put it all together
+    $(_self.ssUL).append(li); //add LI to UL
+    $(_self.ssDivUL).append(_self.ssUL); //UL to DivUL
+    $(_self.ssDivALL).append(_self.ssClear); //add clear to all
+    $(_self.ssDivALL).append(_self.ssDivUL); //add UL to all
+    $(_self.ssDIV).append(_self.ssDivALL); //add ALL to overall DIV
+
+    //configure "clear"
+    $(_self.ssClear).prependTo($(_self.ssDIV).find('div').first());
 
     if ($(this).find('option:not([value])').length === 0) {
       $(_self.ssDIV).find('.ssAC-clear').hide();
     }
-    $(_self.ssDIV).prepend(_self.ssTB);
-    _self.ssSL.after(_self.ssDIV);
+
+    $(_self.ssTB).after(_self.ssDIV);
 
     //console.log($(_self.ssDIV).find('li:containsIC("Gu")').not(':empty') );
 
@@ -55,6 +67,14 @@
     ////////////
     // EVENTS //
     ////////////
+
+    //Clear selection
+    $(_self.ssDIV).on('mousedown', '.ssAC-clear', function (e) {
+      _self.selectedLI = $(_self.ssDIV).find("li:empty");
+      SelectIndex(0);
+      $(_self.ssDIV).hide();
+      $(_self.ssDIV).find('li').not(':empty').show();
+    });
 
     //textbox click - open list
     $(_self.ssTB).on('click', function () {
@@ -91,6 +111,7 @@
             _self.selectedLI = $(_self.ssDIV).find("li:empty");
             SelectIndex(0);
           }
+          $(_self.ssDIV).find('li').not(':empty').show();
           e.preventDefault();
           return;
         }
@@ -133,6 +154,7 @@
     ///////////////
     // FUNCTIONS //
     ///////////////
+
     //MOVE
     function MOVE(n) {
       if ($(_self.ssDIV).find('li:visible').length <= 1) { return; }
@@ -166,16 +188,29 @@
     //scroll in to view
     function ScrollIntoView() {
       if ($(_self.selectedLI).position() === undefined) return;
-      var divHeight = $(_self.ssDIV).height();
-      var sliHeight = $(_self.selectedLI).height();
-      var sliTop = $(_self.selectedLI).position()["top"];
-      var divTop = $(_self.ssDIV).scrollTop();
-      //console.log(sli.position()["top"], sli.height(), div.height(), div.scrollTop());
-      if (sliTop + sliHeight * 2 > divHeight + divTop) {
-        $(_self.ssDIV).scrollTop(sliTop + sliHeight * 2 - divHeight);
+      var divHeight = $(_self.ssDivUL).height()
+      var sliTop = $(_self.selectedLI).position().top;
+      var rowHeight = $(_self.selectedLI).height() + 8;//add padding
+
+
+      //var items = { 'sliTop': sliTop, 'sliHeight': sliHeight, 'divHeight': divHeight, 'divTop': divTop };
+      var items = {
+        'ssUL.top': $(_self.ssUL).position().top,
+        'ssDivUL.scrolltop': $(_self.ssDivUL).scrollTop(),
+        //'ssDivUL.top': $(_self.ssDivUL).position().top,
+        'ssDivUL.height': $(_self.ssDivUL).height(),
+        'selectedLI.top': $(_self.selectedLI).position().top
+        //'ssDivALL.top': $(_self.ssDivALL).position().top,
+        //'ssDivALL.scrolltop': $(_self.selectedLI).scrollTop()
+      };
+
+      console.log(items);
+
+      if (sliTop > divHeight) {
+        $(_self.ssDivUL).scrollTop(0).scrollTop($(_self.selectedLI).position().top - divHeight);
       }
-      else if (sliTop < divTop) {
-        $(_self.ssDIV).scrollTop(sliTop);
+      else if (sliTop < rowHeight) {
+        $(_self.ssDivUL).scrollTop(0).scrollTop($(_self.selectedLI).position().top - rowHeight);
       }
     }
 
