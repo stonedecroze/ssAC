@@ -30,7 +30,7 @@
     this.ssTB = $.parseHTML("<input type='text' />");
     $(_self.ssTB).attr("class", _self.ssSL.attr("class"));
     $(_self.ssTB).attr("style", _self.ssSL.attr("style"));
-    $(_self.ssTB).css("width", "100%").show(); //force correct width if not stipulated
+    $(_self.ssTB).css("width", settings.width + 'px'); //force correct width if not stipulated
     $(_self.ssSL).after(_self.ssTB);
 
     //convert OPTIONS to UL > LI
@@ -53,7 +53,7 @@
     }
     $(_self.ssDivALL).append(_self.ssDivUL); //add UL to all
     $(_self.ssDIV).append(_self.ssDivALL); //add ALL to overall DIV
-    $(_self.ssTB).after(_self.ssDIV);//add to DOM
+    $(_self.ssTB).show().after(_self.ssDIV);//add to DOM
 
     this.ScrollOffset = 0;
     if ($(_self.ssUL).find('li:empty').length > 0) {
@@ -61,10 +61,10 @@
       _self.DownOffset = 0; //no padding
     }
     else {
-      _self.UpOffset = - $(_self.ssUL).find('li').height(); //no padding
+      _self.UpOffset = -$(_self.ssUL).find('li').height(); //no padding
       _self.DownOffset = $(_self.ssUL).find('li').height() + 8; //padding
     }
-
+    $(this.ssDIV).hide();
     //console.log(_self.ScrollOffset);
 
 
@@ -88,13 +88,13 @@
 
     //textbox - ignore left and right arrows due to unwanted caret movement in textbox
     $(_self.ssTB).on('keydown', function (e) {
-      if (e.keyCode === 38) { MOVE(-1); e.preventDefault();}
-      else if (e.keyCode === 40) { MOVE(1); e.preventDefault();}      
+      if (e.keyCode === 38) { MOVE(-1); e.preventDefault(); }
+      else if (e.keyCode === 40) { MOVE(1); e.preventDefault(); }
     })
 
     //textbox - handle keys
     $(_self.ssTB).on('keyup', function (e) {
-      
+
       //UP & DOWN if list NOT showing
       if ((e.keyCode === 38 || e.keyCode === 40) && !$(_self.ssDIV).is(":visible")) {
         $(_self.ssDIV).show().position({ my: "left top+5", at: "left bottom", of: _self.ssTB });
