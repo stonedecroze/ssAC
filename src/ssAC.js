@@ -41,27 +41,31 @@
     })
 
     this.ssDIV = $.parseHTML('<div class="ssAutoComplete" style="width:' + settings.width + 'px" />');
-    this.ssDivALL = $.parseHTML('<div/>');
-    this.ssDivUL = $.parseHTML('<div/>');
-    this.ssUL = $.parseHTML('<ul/>');
+    this.ssDivALL = $.parseHTML('<div class="ssALL"/>');
+    this.ssDivUL = $.parseHTML('<div class="ssDivUL"/>');
+    this.ssUL = $.parseHTML('<ul class="ssUL"/>');
     this.ssClear = $.parseHTML('<div class="ssAC-clear">clear ...</div>');
     //put it all together
     $(_self.ssUL).append(li); //add LI to UL
     $(_self.ssDivUL).append(_self.ssUL); //UL to DivUL
-    $(_self.ssDivALL).append(_self.ssClear); //add clear to all
+    if ($(_self.ssUL).find('li:empty').length > 0) {
+      $(_self.ssDivALL).append(_self.ssClear); //add clear to all
+    }
     $(_self.ssDivALL).append(_self.ssDivUL); //add UL to all
     $(_self.ssDIV).append(_self.ssDivALL); //add ALL to overall DIV
+    $(_self.ssTB).after(_self.ssDIV);//add to DOM
 
-    //configure "clear"
-    $(_self.ssClear).prependTo($(_self.ssDIV).find('div').first());
-
-    if ($(this).find('option:not([value])').length === 0) {
-      $(_self.ssDIV).find('.ssAC-clear').hide();
+    this.ScrollOffset = 0;
+    if ($(_self.ssUL).find('li:empty').length > 0) {
+      _self.UpOffset = 8; //padding
+      _self.DownOffset = 0; //no padding
+    }
+    else {
+      _self.UpOffset = - $(_self.ssUL).find('li').height(); //no padding
+      _self.DownOffset = $(_self.ssUL).find('li').height() + 8; //padding
     }
 
-    $(_self.ssTB).after(_self.ssDIV);
-
-    //console.log($(_self.ssDIV).find('li:containsIC("Gu")').not(':empty') );
+    //console.log(_self.ScrollOffset);
 
 
     ////////////
@@ -190,27 +194,24 @@
       if ($(_self.selectedLI).position() === undefined) return;
       var divHeight = $(_self.ssDivUL).height()
       var sliTop = $(_self.selectedLI).position().top;
-      var rowHeight = $(_self.selectedLI).height() + 8;//add padding
+      var rowHeight = $(_self.selectedLI).height();//add padding
+      //debug
+      //var items = {
+      //  'ssUL.top': $(_self.ssUL).position().top,
+      //  'ssDivUL.scrolltop': $(_self.ssDivUL).scrollTop(),
+      //  'ssDivUL.height': $(_self.ssDivUL).height(),
+      //  'selectedLI.top': $(_self.selectedLI).position().top,
+      //  'DownOffset': _self.DownOffset,
+      //  'UpOffset': _self.UpOffset
+      //};
+      //console.log(items);
 
-
-      //var items = { 'sliTop': sliTop, 'sliHeight': sliHeight, 'divHeight': divHeight, 'divTop': divTop };
-      var items = {
-        'ssUL.top': $(_self.ssUL).position().top,
-        'ssDivUL.scrolltop': $(_self.ssDivUL).scrollTop(),
-        //'ssDivUL.top': $(_self.ssDivUL).position().top,
-        'ssDivUL.height': $(_self.ssDivUL).height(),
-        'selectedLI.top': $(_self.selectedLI).position().top
-        //'ssDivALL.top': $(_self.ssDivALL).position().top,
-        //'ssDivALL.scrolltop': $(_self.selectedLI).scrollTop()
-      };
-
-      console.log(items);
-
-      if (sliTop > divHeight) {
-        $(_self.ssDivUL).scrollTop(0).scrollTop($(_self.selectedLI).position().top - divHeight);
+      //flip to top and then calc where to go, this IS quick as there is no redraw
+      if (sliTop + _self.DownOffset > divHeight) {
+        $(_self.ssDivUL).scrollTop(0).scrollTop($(_self.selectedLI).position().top - divHeight + _self.DownOffset);
       }
       else if (sliTop < rowHeight) {
-        $(_self.ssDivUL).scrollTop(0).scrollTop($(_self.selectedLI).position().top - rowHeight);
+        $(_self.ssDivUL).scrollTop(0).scrollTop($(_self.selectedLI).position().top - rowHeight - _self.UpOffset);
       }
     }
 

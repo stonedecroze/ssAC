@@ -7,13 +7,13 @@
 /*.ssAutoComplete input{
 }*/
 
-.ssAutoComplete > div:first-of-type{
+.ssALL{
   position:absolute;
   background-color:pink;
   /*overflow-x:hidden;*/
 }
 
-.ssAutoComplete > div:first-of-type > div:first-of-type{
+.ssAC-clear{
   background-color:#eee;
   box-sizing: border-box;
   /*top:0;
@@ -23,7 +23,7 @@
   cursor:pointer;
 }
 
-.ssAutoComplete > div:first-of-type > div:nth-of-type(2){
+.ssDivUL{
   background-color:palegoldenrod;
   max-height:300px;
   overflow-y:scroll;
