@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <title>Super Simple Autocomplete</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
@@ -57,7 +58,7 @@
           <option value='CM'>Cameroon</option>
           <option value='CA'>Canada</option>
           <option value='CV'>Cape Verde</option>
-          <option value='BQ'>Caribbean Netherlands </option>
+          <option value='BQ'>Caribbean Netherlands</option>
           <option value='KY'>Cayman Islands</option>
           <option value='CF'>Central African Republic</option>
           <option value='TD'>Chad</option>
@@ -313,7 +314,7 @@
           <option value='CM'>Cameroon</option>
           <option value='CA'>Canada</option>
           <option value='CV'>Cape Verde</option>
-          <option value='BQ'>Caribbean Netherlands </option>
+          <option value='BQ'>Caribbean Netherlands</option>
           <option value='KY'>Cayman Islands</option>
           <option value='CF'>Central African Republic</option>
           <option value='TD'>Chad</option>
@@ -570,7 +571,7 @@
           <option value='CM'>Cameroon</option>
           <option value='CA'>Canada</option>
           <option value='CV'>Cape Verde</option>
-          <option value='BQ'>Caribbean Netherlands </option>
+          <option value='BQ'>Caribbean Netherlands</option>
           <option value='KY'>Cayman Islands</option>
           <option value='CF'>Central African Republic</option>
           <option value='TD'>Chad</option>
@@ -786,10 +787,12 @@
   </table>
 
 
+
+
   <script type="text/javascript">
     $('#country1').ssAC()
     $('#country2').ssAC()
-    $('#country3').ssAC({ startsWith: true })
+    //$('#country3').ssAC({ startsWith: true })
 
     $('#start').focus();
   </script>
