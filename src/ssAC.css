@@ -1,33 +1,59 @@
-﻿div.SSAC {
-	max-height: 300px;
-	position: absolute;
-	padding: 0;
-	overflow-y: scroll;
-	background-color: white;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-    z-index:999;
+/* SUPER SIMPLE AUTO COMPLETE */
+.ssAutoComplete{
+  position:absolute;
 }
 
-div.SSAC ul {
-	list-style-type: none;
-	padding: 0;
-	margin:0;
-	cursor: pointer;
+.ssInput{
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAbJJREFUeNpi/P//P8NAAiaGAQajDhh1wKgDRh0w4A5gIaSAkZGRNTMz8/Xv37/5//39y0Co4GYE+YqZmYGVlfXj9OnTRYHc3/iKexYiHMn99+9f/t6+iQw/f/5gIFR3AB3MwM7OwVBaUsgP0gvEHygKAZCab9++HZwzZ459cHAQw/ETp4BC/8EWIQOIwxgZLC3MGBYvXsIA0kOM+cQ44OeSJUvy/vz5M/njx/d20TExDFevXsMICZCDtLW1GObNm8tw6+aNQytWrMgD6SUYxUQEKciRAkAsFxER0S8vr2AXERnF8PjJU4Z///5BUjITE4OsjDTDiuXLGB4+fACyvBAo/Aga/H/w2UGMA0AUMxALghwRGRnZLyUpZecfGMTw4yfEg+zsbAyb1q9nePb82aHly5fDLH8PxH8R0UOZA1AcERUV2S8oJGTn5e0LltiyaSPDx48fDy1btgzDcmo6AMUR0dHRE3h4eGxBgl++fDm8dOnSAmyWU9sByI6QgtIMUEufYbOcFg6A5R5OUPTDcgoQfwclOGyKaeEAkgBFJSGtW82jteGoA0YdMOqAAXcAQIABAKtJvw3tPes8AAAAAElFTkSuQmCC');
+  background-position:right;
+  background-repeat:no-repeat;
+  cursor:pointer;
 }
 
-div.SSAC li {
-    list-style-type: none;
-    padding: 4px 0px 4px 15px;
-    border-bottom: 1px solid white;
-    border-top: 1px solid white;
+.ssALL{
+  position:absolute;
+  background-color:white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width:100%;
+  z-index:999;
 }
 
-div.SSAC li:hover {
+.ssAC-clear{
+  background-color:#eee;
+  box-sizing: border-box;
+  width:100%;
+  padding:4px 0 4px 15px;
+  cursor:pointer;
+}
+
+.ssDivUL{
+  max-height:300px;
+  overflow-y:scroll;
+}
+
+.ssAutoComplete ul{
+  margin:0;
+  padding:0;
+  list-style-type: none;
+  cursor:pointer;
+}
+
+.ssAutoComplete li{
+  padding:4px 0 4px 15px;
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+}
+
+.ssAutoComplete li:hover {
     border-bottom: 1px solid #ccc;
     border-top: 1px solid #ccc;
 }
 
-div.SSAC li.ssSI {
+.ssAutoComplete li.ssSI {
     background-color: #f6d0ac;
+}
+
+.ssAutoComplete li:empty{
+  display:none;
 }
