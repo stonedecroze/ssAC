@@ -1,5 +1,13 @@
 ﻿//https://learn.jquery.com/plugins/basic-plugin-creation/
 
+$(window).keydown(function (event) {
+  if (event.keyCode == 13 && event.target.nodeName != 'TEXTAREA') {
+    event.preventDefault();
+    return false;
+  }
+});//prevent form being submitted on ENTER, but does allow enter in textarea
+
+
 (function ($) {
   $.fn.ssAC = function (options) {
 
@@ -18,9 +26,12 @@
     _self.ssSL.hide(); //hide select list
     _self.UpOffset = 0;
     _self.DownOffset = 0;
+    _self.oldVal = $(_self.ssSL).val();
+
     // This is the easiest way to have default options.
     var settings = $.extend({
       startsWith: false,
+      defaultValue: null,
       width: _self.ssSL.outerWidth(true)
     }, options);
 
@@ -71,7 +82,7 @@
     $(_self.ssDIV).on('mousedown', '.ssAC-clear', function (e) {
       _self.selectedLI = $(_self.ssDIV).find("li:empty");
       SelectIndex(0);
-      $(_self.ssDIV).hide();
+      closeAC();
       $(_self.ssDIV).find('li').not(':empty').show();
     });
 
@@ -101,7 +112,7 @@
       }
       else if (e.keyCode === 13 || e.keyCode === 27) { //ENTER & TAB
         SelectIndex(0);
-        $(_self.ssDIV).hide();
+        closeAC();
       }
       else if (e.keyCode === 9 || e.keyCode === 37 || e.keyCode === 39 || e.keyCode === 16 || e.keyCode === 17 || e.keyCode === 18) {
         //ignore: tab, leftarrow, rightarrow, shift, ctrl, alt
@@ -140,16 +151,15 @@
 
     //textbox - blur event (hide div list)
     $(_self.ssTB).on('blur', function (e) {
-      $(_self.ssDIV).hide();
+      closeAC();
       SelectIndex(0);
-      //$(_self.ssDIV).find('li').show();
     });
 
     //click list item in DIV (delegate)
     $(_self.ssDIV).on('mousedown', 'li', function (e) {
       _self.selectedLI = $(this);
       SelectIndex(0);
-      $(_self.ssDIV).hide();
+      closeAC();
     });
 
     ///////////////
@@ -190,15 +200,20 @@
       ScrollIntoView();
     }
 
+    //COSE autocomplete
+    function closeAC() {
+      var newVal = liValue();
+      $(_self.ssDIV).hide();
+      if (_self.oldVal !== newVal) { $(_self.ssSL).trigger('change'); }
+    }
+
     //SELECT INDEX
     function SelectIndex(i) {
-      var oldVal = $(_self.ssSL).val();
       var newVal = liValue();
       $(_self.ssDIV).find('li').removeClass('ssSI');
       $(_self.selectedLI).addClass('ssSI');
       $(_self.ssSL).val(newVal);
       if (i !== 1) $(_self.ssTB).val(liText());
-      if (oldVal !== newVal) { $(_self.ssSL).trigger('change'); }
     }
 
     //scroll in to view
@@ -245,10 +260,17 @@
     }
 
     //set selected item
-    if ($(_self.ssSL).find('[selected]').length) {
-      var value = $(_self.ssSL).find('[selected]').val();
-      _self.selectedLI = $(_self.ssDIV).find("li[value='" + value + "']");
+    if (settings.defaultValue !== null) {
+      var valueD = settings.defaultValue;
+      _self.selectedLI = $(_self.ssDIV).find("li[value='" + valueD + "']");
       SelectIndex(_self, 0);
+      $(_self.ssSL).trigger('change');
+    }
+    else if ($(_self.ssSL).find('[selected]').length) {
+      var valueS = $(_self.ssSL).find('[selected]').val();
+      _self.selectedLI = $(_self.ssDIV).find("li[value='" + valueS + "']");
+      SelectIndex(_self, 0);
+      $(_self.ssSL).trigger('change');
     }
 
     return this;
