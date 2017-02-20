@@ -1,13 +1,5 @@
 ﻿//https://learn.jquery.com/plugins/basic-plugin-creation/
 
-$(window).keydown(function (event) {
-  if (event.keyCode == 13 && event.target.nodeName != 'TEXTAREA') {
-    event.preventDefault();
-    return false;
-  }
-});//prevent form being submitted on ENTER, but does allow enter in textarea
-
-
 (function ($) {
   $.fn.ssAC = function (options) {
 
@@ -97,6 +89,7 @@ $(window).keydown(function (event) {
     $(_self.ssTB).on('keydown', function (e) {
       if (e.keyCode === 38) { MOVE(-1); e.preventDefault(); }
       else if (e.keyCode === 40) { MOVE(1); e.preventDefault(); }
+      else if (e.keyCode === 13) { e.preventDefault(); }
     });
 
     //textbox - handle keys
