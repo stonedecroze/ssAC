@@ -6,11 +6,18 @@
   <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
   <script src="../src/ssAC.js"></script>
+  <script src="../src/ssAutoComplete.js"></script>
   <link href="../src/ssAC.css" rel="stylesheet" />
 </head>
 <body>
   <h1>Super Simple Autocomplete</h1>
   <p>Start and End inputs are provided so that you can see how SSAC works as you tab in and over it.</p>
+
+  <div id="test1">text one</div>
+  <div id="test2">text two</div>
+  <select id="bob"></select>
+
+
   <table>
     <tr><th>Start value</th><td><input id="start" type="text" /><td></tr>
     <tr>
@@ -787,12 +794,15 @@
   </table>
 
 
-
-
   <script type="text/javascript">
     $('#country1').ssAC()
-    $('#country2').ssAC()
+    //$('#country2').ssAC()
     //$('#country3').ssAC({ startsWith: true })
+
+    $('#bob,#test1,#country2,#country3').SSAC2({
+      //fred: 'moo',
+      //kate:"cow"
+    })
 
     $('#start').focus();
   </script>
