@@ -25,12 +25,23 @@
 
       var _self = this;
       _self.textbox = $("<input type='text' value='nuts' />");
+      _self.container = $("<div></div>");
+      _self.UL = $("<ul></ul>");
+
+      //convert options to list items
+      $(this).find("option").each(function (i, v) {
+        var value = $(v);
+        var li = "<li value='" + value.val() + "'>" + value.text() + "</li>";
+        _self.UL.append(li);
+      });
+
+      _self.container.append(_self.textbox);
+      _self.container.append(_self.UL);
 
       _self.textbox.val(this.length);
-      _self.textbox.insertAfter(this);
-      //$(this).append(_self.textbox);
+      _self.container.insertAfter(this);
       
-
-    });
-  };
+      
+    });//end EACH
+  };//end function
 }(jQuery));
