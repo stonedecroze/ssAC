@@ -23,7 +23,7 @@
       <th>Country with clear</th>
       <td>
         <select id="country1">
-          <option></option>
+          <option value=""></option>
           <option value='AF'>Afghanistan</option>
           <option value='AX'>Åland Islands</option>
           <option value='AL'>Albania</option>
@@ -536,10 +536,10 @@
       <th>Country START of name</th>
       <td>
         <select id="country3">
-          <option></option>
+          <option value=""></option>
           <option value='AF'>Afghanistan</option>
           <option value='AX'>Åland Islands</option>
-          <option value='AL'>Albania</option>
+          <option value='AL' selected="selected">Albania</option>
           <option value='DZ'>Algeria</option>
           <option value='AS'>American Samoa</option>
           <option value='AD'>Andorra</option>
@@ -798,7 +798,7 @@
     //$('#country2').ssAC()
     //$('#country3').ssAC({ startsWith: true })
 
-    $('#bob,#test1,#country2,#country3').SSAC2({
+    $('#test1,#country3').SSAC2({
       //fred: 'moo',
       //kate:"cow"
     })
