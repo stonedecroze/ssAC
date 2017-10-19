@@ -24,15 +24,18 @@
       $(this).hide();
 
       var _self = this;
-      _self.textbox = $("<input type='text' value='nuts' />");
+      _self.textbox = $("<input type='text' />");
       _self.container = $("<div class='ssac2Container'></div>");
       _self.divouter = $("<div class='ssac2outer'></div>"); //required for "clear"
       _self.divlist = $("<div class='ssac2inner'></div>");
 
-      //convert options to list items
+      //convert options to list items + selected
       $(this).find("option").each(function (i, v) {
         var spanclass="";
-        if (v.selected === true) { spanclass = "ssacselected"; }
+        if (v.selected === true) {
+          spanclass = "ssacselected";
+          _self.textbox.val(v.text);
+        }
         else { spanclass = ""; }
         var span = "<span class='" + spanclass + "' data-ssvalue='" + v.value + "'>" + v.text + "</span>";
         _self.divlist.append(span);
@@ -40,17 +43,15 @@
 
       //add clear if there is a value="" option
       if ($(this).find("option[value='']").length === 1) {
-        //_self.divlist.addClass("bob");
         _self.divouter.append("<span class='ssacclear' data-clear='true'>clear</span>");
-        console.log(_self.divlist.find("[data-ssvalue='']").remove());
+        _self.divlist.find("[data-ssvalue='']").remove();
       }
+
+      //glue it all together and put in DOM
       _self.divouter.append(_self.divlist);
       _self.container.append(_self.textbox);
       _self.container.append(_self.divouter);
-
-      _self.textbox.val(this.length);
       _self.container.insertAfter(this);
-      
       
     });//end EACH
   };//end function

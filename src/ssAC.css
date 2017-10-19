@@ -11,7 +11,6 @@
     overflow-y: scroll;
     position: relative;
     background-color: aquamarine;
-    width:100%;
   }
 
 
@@ -25,10 +24,13 @@
 }
 
   .ssac2Container span.ssacclear {
-    height:20px;
-    top:0;
-    left:0;
-    background-color:red;
+    height: 20px;
+    top: 0;
+    left: 0;
+    background-color: #e4d9ad;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABf0lEQVQ4ja1Ty26CUBCFpHbJorX/QWL8Ew1GEyWBUnTJkp0IicEdFdBojJr4Aj5L60eApTPE2wAVmzSd5ORy59zDzJ0DFPXfwTDM0y8cXcQ/8DxvdbvdU71eF/Ik5Pher3fsdDo2bEt5npZl+d1xnHi328W6rl+azaZEyFqtJkIuQs513VgURTvTSbVafTZN8+T7frzdbhMYhhG2Wq1Bu93ugzgkeTwzGo3OLMu+ZFqwLEtYLpeX/X4fbzabBNPpNAHZYwer1eoCnUrUrRiPx29wIMJKRIDAZ8xBgci2bbloiEnAHQeHw+G7KoHneTFU1u+KMVRV7ZOqaeDVgBvcFXMcJwyHw5BcIQ3MIddoNF5visE2Hq0iYlyDIEiQzqHFWCgjRhs1TTsSB67TjgDGfD7X1+t1SDhc4exHpVIpp99BgwM2eozDAuFnetpgpYgWI4dngJtQ+U9akqTSbDZzF4vFGV72454gEpCDjibwWT8WzZFWFKVcRF65wp/pT/EFEAk0zgbhR9gAAAAASUVORK5CYII=');
+    background-position: right 10px center;
+    background-repeat: no-repeat;
   }
 
 .ssac2Container span.ssacselected {
@@ -39,6 +41,18 @@
   border-bottom: 1px solid #ccc;
   border-top: 1px solid #ccc;
 }
+
+.ssac2Container input {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAbJJREFUeNpi/P//P8NAAiaGAQajDhh1wKgDRh0w4A5gIaSAkZGRNTMz8/Xv37/5//39y0Co4GYE+YqZmYGVlfXj9OnTRYHc3/iKexYiHMn99+9f/t6+iQw/f/5gIFR3AB3MwM7OwVBaUsgP0gvEHygKAZCab9++HZwzZ459cHAQw/ETp4BC/8EWIQOIwxgZLC3MGBYvXsIA0kOM+cQ44OeSJUvy/vz5M/njx/d20TExDFevXsMICZCDtLW1GObNm8tw6+aNQytWrMgD6SUYxUQEKciRAkAsFxER0S8vr2AXERnF8PjJU4Z///5BUjITE4OsjDTDiuXLGB4+fACyvBAo/Aga/H/w2UGMA0AUMxALghwRGRnZLyUpZecfGMTw4yfEg+zsbAyb1q9nePb82aHly5fDLH8PxH8R0UOZA1AcERUV2S8oJGTn5e0LltiyaSPDx48fDy1btgzDcmo6AMUR0dHRE3h4eGxBgl++fDm8dOnSAmyWU9sByI6QgtIMUEufYbOcFg6A5R5OUPTDcgoQfwclOGyKaeEAkgBFJSGtW82jteGoA0YdMOqAAXcAQIABAKtJvw3tPes8AAAAAElFTkSuQmCC');
+  background-position: right;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  width:100%;
+  box-sizing:border-box;
+  padding: 4px 0 4px 15px;
+}
+
+
 
 /* SUPER SIMPLE AUTO COMPLETE */
 .ssAutoComplete {
