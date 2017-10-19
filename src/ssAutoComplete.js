@@ -28,6 +28,7 @@ $(".ui-dialog-content").css("overflow", "visible");
       _self.container = $("<div class='ssac2Container'></div>");
       _self.divouter = $("<div class='ssac2outer'></div>"); //required for positioning "clear"
       _self.divlist = $("<div class='ssac2inner'></div>");
+      _self.divclear = $("<span class='ssacclear' data-clear='true'>clear</span>")
 
       //convert options to list items + selected
       $(this).find("option").each(function (i, v) {
@@ -43,9 +44,16 @@ $(".ui-dialog-content").css("overflow", "visible");
 
       //add clear if there is a value="" option
       if ($(this).find("option[value='']").length === 1) {
-        _self.divouter.append("<span class='ssacclear' data-clear='true'>clear</span>");
+        _self.divouter.append(_self.divclear);
         _self.divlist.find("[data-ssvalue='']").remove();
       }
+
+      $(_self.textbox).on('focus', function () {
+        _self.divouter.show();
+      })
+      $(_self.textbox).on('blur', function () {
+        _self.divouter.hide();
+      })
 
       //glue it all together and put in DOM
       _self.divouter.append(_self.divlist);

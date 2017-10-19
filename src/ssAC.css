@@ -4,6 +4,8 @@
 }
 
   .ssac2Container .ssac2outer {
+    position:absolute;
+    display:none;
   }
 
   .ssac2Container .ssac2inner {
