@@ -48,11 +48,16 @@ $(".ui-dialog-content").css("overflow", "visible");
         _self.divlist.find("[data-ssvalue='']").remove();
       }
 
-      $(_self.textbox).on('focus', function () {
+      _self.textbox.on('focus', function () {
         _self.divouter.show();
       })
-      $(_self.textbox).on('blur', function () {
+      _self.textbox.on('blur', function () {
         _self.divouter.hide();
+      })
+
+      _self.divclear.on('click', function () {
+        _self.textbox.val('');
+        console.log('yellow');
       })
 
       //glue it all together and put in DOM
