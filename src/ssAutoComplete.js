@@ -1,14 +1,14 @@
+//extend jQuery contains to be case-insensitive
+$.expr[':'].containsIC = function (n, i, m) {
+  return jQuery(n).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
+};
+
+//ensure that if in a jQuery UI dialogue it will "overflow"
+$(".ui-dialog-content").css("overflow", "visible");
+
+
 (function ($) {
-
   $.fn.SSAC2 = function (options) {
-
-    //extend jQuery contains to be case-insensitive
-    $.expr[':'].containsIC = function (n, i, m) {
-      return jQuery(n).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
-    };
-
-    //ensure that if in a jQuery UI dialogue it will "overflow"
-    $(".ui-dialog-content").css("overflow", "visible");
 
     // set or overwrite default options.
     var settings = $.extend({
@@ -26,7 +26,7 @@
       var _self = this;
       _self.textbox = $("<input type='text' />");
       _self.container = $("<div class='ssac2Container'></div>");
-      _self.divouter = $("<div class='ssac2outer'></div>"); //required for "clear"
+      _self.divouter = $("<div class='ssac2outer'></div>"); //required for positioning "clear"
       _self.divlist = $("<div class='ssac2inner'></div>");
 
       //convert options to list items + selected
