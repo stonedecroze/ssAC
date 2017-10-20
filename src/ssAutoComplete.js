@@ -22,8 +22,7 @@ $(".ui-dialog-content").css("overflow", "visible");
       //RETURN if object is NOT a select
       if ($(this).is("select") === false) { return; }
       $(this).hide();
-
-      var _self = this;
+      var _self = $(this);
       _self.textbox = $("<input type='text' />");
       _self.container = $("<div class='ssac2Container'></div>");
       _self.divouter = $("<div class='ssac2outer'></div>"); //required for positioning "clear"
@@ -48,17 +47,25 @@ $(".ui-dialog-content").css("overflow", "visible");
         _self.divlist.find("[data-ssvalue='']").remove();
       }
 
+      //clear
+      _self.divclear.on('click', function () {
+        SetValue('', '');
+      })
+
+      _self.divlist.on('click', 'span', function () {
+        SetValue($(this).data('ssvalue'), $(this).text());
+      })
+
+      //open list on select input
       _self.textbox.on('focus', function () {
         _self.divouter.show();
       })
-      _self.textbox.on('blur', function () {
-        _self.divouter.hide();
-      })
 
-      _self.divclear.on('click', function () {
-        _self.textbox.val('');
-        console.log('yellow');
-      })
+      function SetValue(val, txt) {
+        _self.textbox.val(txt);
+        _self.val(val).trigger('change');
+        _self.divouter.hide();
+      }
 
       //glue it all together and put in DOM
       _self.divouter.append(_self.divlist);
