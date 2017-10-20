@@ -51,27 +51,37 @@ $(".ui-dialog-content").css("overflow", "visible");
       _self.divclear.on('mousedown', function () {
         SetValue('', '');
       })
-
+      //select item
       _self.divlist.on('mousedown', 'span', function () {
         SetValue($(this).data('ssvalue'), $(this).text());
       })
-
       //open list on select input
       _self.textbox.on('focus', function () {
         _self.divouter.show();
       })
-
+      //close
       _self.textbox.on('blur', function () {
         _self.divouter.hide();
       })
-
+      //set select value
       function SetValue(val, txt) {
         _self.divlist.find('.ssacselected').removeClass('ssacselected');
         _self.divlist.find("[data-ssvalue='"+val+"']").addClass('ssacselected');
         _self.textbox.val(txt);
         _self.val(val).trigger('change');
-        _self.textbox.trigger('blur');
+        _self.divouter.hide();
       }
+
+      //typing in textbox
+      _self.textbox.on('keydown', function (event) {
+        var key = event.which;
+        //backspace = 8, del = 46, left = 37, right = 39, up = 38, down = 40, esc = 27
+        if (key === 27) {
+          _self.divouter.hide();
+          return;
+        }
+      })
+
 
       //glue it all together and put in DOM
       _self.divouter.append(_self.divlist);
