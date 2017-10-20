@@ -48,11 +48,11 @@ $(".ui-dialog-content").css("overflow", "visible");
       }
 
       //clear
-      _self.divclear.on('click', function () {
+      _self.divclear.on('mousedown', function () {
         SetValue('', '');
       })
 
-      _self.divlist.on('click', 'span', function () {
+      _self.divlist.on('mousedown', 'span', function () {
         SetValue($(this).data('ssvalue'), $(this).text());
       })
 
@@ -61,10 +61,16 @@ $(".ui-dialog-content").css("overflow", "visible");
         _self.divouter.show();
       })
 
+      _self.textbox.on('blur', function () {
+        _self.divouter.hide();
+      })
+
       function SetValue(val, txt) {
+        _self.divlist.find('.ssacselected').removeClass('ssacselected');
+        _self.divlist.find("[data-ssvalue='"+val+"']").addClass('ssacselected');
         _self.textbox.val(txt);
         _self.val(val).trigger('change');
-        _self.divouter.hide();
+        _self.textbox.trigger('blur');
       }
 
       //glue it all together and put in DOM
