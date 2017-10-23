@@ -1,5 +1,5 @@
 //extend jQuery contains to be case-insensitive
-$.expr[':'].containsIC = function (n, i, m) {
+$.expr[':'].containsCI = function (n, i, m) {
   return jQuery(n).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
 };
 
@@ -27,7 +27,9 @@ $(".ui-dialog-content").css("overflow", "visible");
       _self.container = $("<div class='ssac2Container'></div>");
       _self.divouter = $("<div class='ssac2outer'></div>"); //required for positioning "clear"
       _self.divlist = $("<div class='ssac2inner'></div>");
-      _self.divclear = $("<span class='ssacclear' data-clear='true'>clear</span>")
+      _self.filteredlist = _self.divlist;
+      _self.selectedvalue = "";
+      _self.divclear = $("<span class='ssacclear' data-clear='true'>clear</span>");
 
       //convert options to list items + selected
       $(this).find("option").each(function (i, v) {
@@ -35,6 +37,7 @@ $(".ui-dialog-content").css("overflow", "visible");
         if (v.selected === true) {
           spanclass = "ssacselected";
           _self.textbox.val(v.text);
+          _self.selectedvalue = v.value;
         }
         else { spanclass = ""; }
         var span = "<span class='" + spanclass + "' data-ssvalue='" + v.value + "'>" + v.text + "</span>";
@@ -73,12 +76,23 @@ $(".ui-dialog-content").css("overflow", "visible");
       }
 
       //typing in textbox
-      _self.textbox.on('keydown', function (event) {
+      _self.textbox.on('keyup', function (event) {
         var key = event.which;
         //backspace = 8, del = 46, left = 37, right = 39, up = 38, down = 40, esc = 27
         if (key === 27) {
           _self.divouter.hide();
           return;
+        }
+        //filter list
+        var inputtext = _self.textbox.val();
+        if (inputtext.length > 0) {
+          _self.filteredlist = _self.divlist.find("span:containsCI('" + inputtext + "')");
+          _self.divlist.find("span").hide();
+          _self.filteredlist.show();
+          //matches.first().addClass('ssacselected');
+          var x = _self.filteredlist.find("span.ssacselected");
+          console.log(_self.filteredlist);
+          console.log(_self.val());
         }
       })
 
