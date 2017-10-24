@@ -27,7 +27,7 @@ $(".ui-dialog-content").css("overflow", "visible");
       _self.container = $("<div class='ssac2Container'></div>");
       _self.divouter = $("<div class='ssac2outer'></div>"); //required for positioning "clear"
       _self.divlist = $("<div class='ssac2inner'></div>");
-      _self.filteredlist = _self.divlist;
+      _self.filteredlist = _self.divlist.find("span");
       _self.selectedvalue = "";
       _self.divclear = $("<span class='ssacclear' data-clear='true'>clear</span>");
 
@@ -52,22 +52,37 @@ $(".ui-dialog-content").css("overflow", "visible");
 
       //clear
       _self.divclear.on('mousedown', function () {
-        SetValue('', '');
+        console.log("clear mousedown");
+        _self.divlist.find("span").show();
+        _self.filteredlist = _self.divlist.find("span");
+        SetValue('');
       })
       //select item
       _self.divlist.on('mousedown', 'span', function () {
-        SetValue($(this).data('ssvalue'), $(this).text());
+        console.log('divlist mousedown ' + $(this).data('ssvalue'));
+        SetValue($(this).data('ssvalue'));
       })
       //open list on select input
       _self.textbox.on('focus', function () {
+        console.log("textbox focus");
         _self.divouter.show();
       })
       //close
       _self.textbox.on('blur', function () {
+        console.log('text blur ' + _self.filteredlist.length);
         _self.divouter.hide();
+        if (_self.filteredlist.length === 1) {
+          SetValue(_self.filteredlist.data('ssvalue'));
+        }
+        else {
+          SetValue(_self.find("option:selected").val());
+        }
       })
       //set select value
-      function SetValue(val, txt) {
+      function SetValue(val) {
+        console.log("set value " + val);
+        var txt = _self.find("option[value='" + val + "']").text();
+        if (val === "") { txt = "";}
         _self.divlist.find('.ssacselected').removeClass('ssacselected');
         _self.divlist.find("[data-ssvalue='"+val+"']").addClass('ssacselected');
         _self.textbox.val(txt);
@@ -78,6 +93,7 @@ $(".ui-dialog-content").css("overflow", "visible");
       //typing in textbox
       _self.textbox.on('keyup', function (event) {
         var key = event.which;
+        console.log("keyup " + key);
         //backspace = 8, del = 46, left = 37, right = 39, up = 38, down = 40, esc = 27
         if (key === 27) {
           _self.divouter.hide();
@@ -85,14 +101,15 @@ $(".ui-dialog-content").css("overflow", "visible");
         }
         //filter list
         var inputtext = _self.textbox.val();
+        if (inputtext.length === 0) {
+          _self.divlist.find("span").show();
+          _self.filteredlist = _self.divlist;
+          _self.val('')
+        }
         if (inputtext.length > 0) {
           _self.filteredlist = _self.divlist.find("span:containsCI('" + inputtext + "')");
           _self.divlist.find("span").hide();
           _self.filteredlist.show();
-          //matches.first().addClass('ssacselected');
-          var x = _self.filteredlist.find("span.ssacselected");
-          console.log(_self.filteredlist);
-          console.log(_self.val());
         }
       })
 
