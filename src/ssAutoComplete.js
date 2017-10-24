@@ -103,7 +103,7 @@ $(".ui-dialog-content").css("overflow", "visible");
         var inputtext = _self.textbox.val();
         if (inputtext.length === 0) {
           _self.divlist.find("span").show();
-          _self.filteredlist = _self.divlist;
+          _self.filteredlist = _self.divlist.find("span");
           _self.val('')
         }
         if (inputtext.length > 0) {
