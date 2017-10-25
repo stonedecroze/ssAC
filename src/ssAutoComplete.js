@@ -30,6 +30,7 @@ $(".ui-dialog-content").css("overflow", "visible");
       _self.filteredlist = _self.divlist.find("span");
       _self.selectedvalue = "";
       _self.divclear = $("<span class='ssacclear' data-clear='true'>clear</span>");
+      _self.canclear = false;
 
       //convert options to list items + selected
       $(this).find("option").each(function (i, v) {
@@ -48,6 +49,7 @@ $(".ui-dialog-content").css("overflow", "visible");
       if ($(this).find("option[value='']").length === 1) {
         _self.divouter.append(_self.divclear);
         _self.divlist.find("[data-ssvalue='']").remove();
+        _self.canclear = true;
       }
 
       //clear
@@ -104,7 +106,7 @@ $(".ui-dialog-content").css("overflow", "visible");
         if (inputtext.length === 0) {
           _self.divlist.find("span").show();
           _self.filteredlist = _self.divlist.find("span");
-          _self.val('')
+          if (_self.canclear) { _self.val('');} //only clear if clearable
         }
         if (inputtext.length > 0) {
           _self.filteredlist = _self.divlist.find("span:containsCI('" + inputtext + "')");

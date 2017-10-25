@@ -527,6 +527,7 @@
           <option value='ZW'>Zimbabwe</option>
         </select>
       </td>
+      <td><input id="select2text" type="text" value="" /></td>
     </tr>
     <tr>
       <th>Country START of name</th>
@@ -784,6 +785,7 @@
           <option value='ZW'>Zimbabwe</option>
         </select>
       </td>
+      <td><input id="select3text" type="text" value="" /></td>
     </tr>
     <tr><th>End value</th><td><input type="text" /><td></tr>
   </table>
@@ -797,6 +799,14 @@
     $('#country3,#country2').SSAC2({
       //fred: 'moo',
       //kate:"cow"
+    })
+
+    $('#country2').on('change', function () {
+      $('#select2text').val($(this).val());
+    })
+
+    $('#country3').on('change', function () {
+      $('#select3text').val($(this).val());
     })
 
     $('#start').focus();
