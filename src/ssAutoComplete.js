@@ -28,7 +28,7 @@ $(".ui-dialog-content").css("overflow", "visible");
       _self.divouter = $("<div class='ssac2outer'></div>"); //required for positioning "clear"
       _self.divlist = $("<div class='ssac2inner'></div>");
       _self.filteredlist = _self.divlist.find("span");
-      _self.selectedvalue = "";
+      //_self.selectedvalue = "";
       _self.divclear = $("<span class='ssacclear' data-clear='true'>clear</span>");
       _self.canclear = false;
 
@@ -38,7 +38,7 @@ $(".ui-dialog-content").css("overflow", "visible");
         if (v.selected === true) {
           spanclass = "ssacselected";
           _self.textbox.val(v.text);
-          _self.selectedvalue = v.value;
+          //_self.selectedvalue = v.value;
         }
         else { spanclass = ""; }
         var span = "<span class='" + spanclass + "' data-ssvalue='" + v.value + "'>" + v.text + "</span>";
@@ -59,22 +59,28 @@ $(".ui-dialog-content").css("overflow", "visible");
         _self.filteredlist = _self.divlist.find("span");
         SetValue('');
       })
+
       //select item
       _self.divlist.on('mousedown', 'span', function () {
         console.log('divlist mousedown ' + $(this).data('ssvalue'));
         SetValue($(this).data('ssvalue'));
       })
+
       //open list on select input
       _self.textbox.on('focus', function () {
         console.log("textbox focus");
+        var val = _self.val();
+        _self.divlist.find('span').removeClass('ssachover');
+        _self.divlist.find("[data-ssvalue='" + val + "']").addClass('ssachover');
         _self.divouter.show();
       })
+
       //close
       _self.textbox.on('blur', function () {
         console.log('text blur ' + _self.filteredlist.length);
         _self.divouter.hide();
         if (_self.filteredlist.length === 1) {
-          SetValue(_self.filteredlist.data('ssvalue'));
+            SetValue(_self.filteredlist.data('ssvalue'));
         }
         else {
           SetValue(_self.find("option:selected").val());
@@ -82,8 +88,13 @@ $(".ui-dialog-content").css("overflow", "visible");
       })
       //set select value
       function SetValue(val) {
-        console.log("set value " + val);
         var txt = _self.find("option[value='" + val + "']").text();
+        if (_self.val() === val) {
+          _self.textbox.val(txt);
+          return;
+        }//exit if nothing changed, refresh text, AVOID triggering change
+
+        console.log("set value '" + val + "'");
         if (val === "") { txt = "";}
         _self.divlist.find('.ssacselected').removeClass('ssacselected');
         _self.divlist.find("[data-ssvalue='"+val+"']").addClass('ssacselected');
@@ -96,11 +107,32 @@ $(".ui-dialog-content").css("overflow", "visible");
       _self.textbox.on('keyup', function (event) {
         var key = event.which;
         console.log("keyup " + key);
-        //backspace = 8, del = 46, left = 37, right = 39, up = 38, down = 40, esc = 27
+        //backspace = 8, del = 46, left = 37, right = 39, up = 38, down = 40, esc = 27, enter = 13
         if (key === 27) {
           _self.divouter.hide();
           return;
         }
+
+        if (key === 38) {
+          var current = _self.divlist.find('.ssachover');
+          var prev = _self.divlist.find('.ssachover').prev();
+          prev.addClass('ssachover');
+          current.removeClass('ssachover');
+          return;
+        }
+        if (key === 40) {
+          var current = _self.divlist.find('.ssachover');
+          var next = _self.divlist.find('.ssachover').next();
+          next.addClass('ssachover');
+          current.removeClass('ssachover');
+          return;
+        }
+        if (key === 13) {
+          var val = _self.divlist.find('.ssachover').data('ssvalue');
+          SetValue(val);
+          return;
+        }
+
         //filter list
         var inputtext = _self.textbox.val();
         if (inputtext.length === 0) {
@@ -114,7 +146,6 @@ $(".ui-dialog-content").css("overflow", "visible");
           _self.filteredlist.show();
         }
       })
-
 
       //glue it all together and put in DOM
       _self.divouter.append(_self.divlist);
