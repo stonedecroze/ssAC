@@ -1,0 +1,30 @@
+* open on click
+
+* open on enter textbox
+
+* highlight entire text on entering textbox
+-DO NOT FILTER ON OPEN
+-only filter on NON-SELECTED text in box
+
+*delete / backspace clear selection and show list
+
+*up and down keys highlight up and down
+-DO NOT "roll-over"
+-need to scroll item in to view
+
+*home and end keys go to first/last item respectively
+-need to scroll item in to view
+
+*clicked item is selected
+-list closes
+
+*enter key selects item
+-list closes
+
+*blur selects highlighted item
+-list closes
+
+*SELECT function
+-sets value IF CHANGED
+-triggers change
+-closes list

@@ -90,11 +90,13 @@ $(".ui-dialog-content").css("overflow", "visible");
       function SetValue(val) {
         var txt = _self.find("option[value='" + val + "']").text();
         if (_self.val() === val) {
+          console.log("setvalue - value not changed '" + val + "'");
+          _self.filteredlist = _self.divlist.find("span").show();//remove filter
           _self.textbox.val(txt);
           return;
         }//exit if nothing changed, refresh text, AVOID triggering change
 
-        console.log("set value '" + val + "'");
+        console.log("setvalue '" + val + "'");
         if (val === "") { txt = "";}
         _self.divlist.find('.ssacselected').removeClass('ssacselected');
         _self.divlist.find("[data-ssvalue='"+val+"']").addClass('ssacselected');
@@ -107,7 +109,8 @@ $(".ui-dialog-content").css("overflow", "visible");
       _self.textbox.on('keyup', function (event) {
         var key = event.which;
         console.log("keyup " + key);
-        //backspace = 8, del = 46, left = 37, right = 39, up = 38, down = 40, esc = 27, enter = 13
+        //backspace = 8, del = 46, tab = 38, esc = 27, enter = 13
+        //home = 36, end = 35, left = 37, right = 39, up = 38, down = 40
         if (key === 27) {
           _self.divouter.hide();
           return;
