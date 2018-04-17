@@ -1,0 +1,90 @@
+﻿/*SSAC*/
+
+.ui-dialog {
+  overflow: visible;
+}
+
+.ssac-outer {
+  box-sizing: border-box;
+}
+
+.ssac-input {
+  width: 100%;
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAbJJREFUeNpi/P//P8NAAiaGAQajDhh1wKgDRh0w4A5gIaSAkZGRNTMz8/Xv37/5//39y0Co4GYE+YqZmYGVlfXj9OnTRYHc3/iKexYiHMn99+9f/t6+iQw/f/5gIFR3AB3MwM7OwVBaUsgP0gvEHygKAZCab9++HZwzZ459cHAQw/ETp4BC/8EWIQOIwxgZLC3MGBYvXsIA0kOM+cQ44OeSJUvy/vz5M/njx/d20TExDFevXsMICZCDtLW1GObNm8tw6+aNQytWrMgD6SUYxUQEKciRAkAsFxER0S8vr2AXERnF8PjJU4Z///5BUjITE4OsjDTDiuXLGB4+fACyvBAo/Aga/H/w2UGMA0AUMxALghwRGRnZLyUpZecfGMTw4yfEg+zsbAyb1q9nePb82aHly5fDLH8PxH8R0UOZA1AcERUV2S8oJGTn5e0LltiyaSPDx48fDy1btgzDcmo6AMUR0dHRE3h4eGxBgl++fDm8dOnSAmyWU9sByI6QgtIMUEufYbOcFg6A5R5OUPTDcgoQfwclOGyKaeEAkgBFJSGtW82jteGoA0YdMOqAAXcAQIABAKtJvw3tPes8AAAAAElFTkSuQmCC');
+  background-position: right;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.ssac-listparent {
+  position: relative;
+  cursor: pointer;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.ssac-clearbreak {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.ssac-list {
+  background-color: white;
+  padding: 2px 0 2px 0;
+  max-height: 200px;
+  overflow-y: scroll;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 999; /*jquery UI dialogue buttons*/
+  box-sizing: border-box;
+}
+
+.ssac-list-hasclear {
+  top: 24px;
+  box-sizing: border-box;
+}
+
+.ssac-item {
+  padding: 2px 0 2px 6px;
+  border-top: solid 1px white;
+  border-bottom: solid 1px white;
+  box-sizing: border-box;
+}
+
+  .ssac-item:hover {
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    box-sizing: border-box;
+  }
+
+  .ssac-clear:hover {
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    box-sizing: border-box;
+  }
+
+.ssac-selected {
+  background-color: palegreen;
+  border-top: solid 1px palegreen;
+  border-bottom: solid 1px palegreen;
+  box-sizing: border-box;
+}
+
+.ssac-clear {
+  padding: 2px 0px 2px 12px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  color: #888;
+  background-color: paleturquoise;
+  border-top: solid 1px paleturquoise;
+  border-bottom: solid 1px paleturquoise;
+  box-sizing: border-box;
+}

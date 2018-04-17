@@ -4,10 +4,8 @@
   <title>Super Simple Autocomplete</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-  <script src="../src/ssAC.js"></script>
-  <script src="../src/ssAutoComplete.js"></script>
-  <link href="../src/ssAC.css" rel="stylesheet" />
+  <script src="../src/ssac.js"></script>
+  <link href="../src/ssac.css" rel="stylesheet" />
 </head>
 <body>
   <h1>Super Simple Autocomplete</h1>
@@ -21,7 +19,7 @@
         <select id="country1">
           <option value=""></option>
           <option value='AF'>Afghanistan</option>
-          <option value='AX'>Åland Islands</option>
+          <option value='AX'>ï¿½land Islands</option>
           <option value='AL'>Albania</option>
           <option value='DZ'>Algeria</option>
           <option value='AS'>American Samoa</option>
@@ -74,10 +72,10 @@
           <option value='CD'>Congo, Democratic Republic of</option>
           <option value='CK'>Cook Islands</option>
           <option value='CR'>Costa Rica</option>
-          <option value='CI'>Côte d'Ivoire</option>
+          <option value='CI'>Cï¿½te d'Ivoire</option>
           <option value='HR'>Croatia</option>
           <option value='CU'>Cuba</option>
-          <option value='CW'>Curaçao</option>
+          <option value='CW'>Curaï¿½ao</option>
           <option value='CY'>Cyprus</option>
           <option value='CZ'>Czech Republic</option>
           <option value='DK'>Denmark</option>
@@ -197,11 +195,11 @@
           <option value='PT'>Portugal</option>
           <option value='PR'>Puerto Rico</option>
           <option value='QA'>Qatar</option>
-          <option value='RE'>Réunion</option>
+          <option value='RE'>Rï¿½union</option>
           <option value='RO'>Romania</option>
           <option value='RU'>Russian Federation</option>
           <option value='RW'>Rwanda</option>
-          <option value='BL'>Saint Barthélemy</option>
+          <option value='BL'>Saint Barthï¿½lemy</option>
           <option value='SH'>Saint Helena</option>
           <option value='KN'>Saint Kitts and Nevis</option>
           <option value='LC'>Saint Lucia</option>
@@ -277,7 +275,7 @@
       <td>
         <select id="country2">
           <option value='AF'>Afghanistan</option>
-          <option value='AX'>Åland Islands</option>
+          <option value='AX'>ï¿½land Islands</option>
           <option value='AL'>Albania</option>
           <option value='DZ'>Algeria</option>
           <option value='AS'>American Samoa</option>
@@ -330,10 +328,10 @@
           <option value='CD'>Congo, Democratic Republic of</option>
           <option value='CK'>Cook Islands</option>
           <option value='CR'>Costa Rica</option>
-          <option value='CI'>Côte d'Ivoire</option>
+          <option value='CI'>Cï¿½te d'Ivoire</option>
           <option value='HR'>Croatia</option>
           <option value='CU'>Cuba</option>
-          <option value='CW'>Curaçao</option>
+          <option value='CW'>Curaï¿½ao</option>
           <option value='CY'>Cyprus</option>
           <option value='CZ'>Czech Republic</option>
           <option value='DK'>Denmark</option>
@@ -453,11 +451,11 @@
           <option value='PT'>Portugal</option>
           <option value='PR'>Puerto Rico</option>
           <option value='QA'>Qatar</option>
-          <option value='RE'>Réunion</option>
+          <option value='RE'>Rï¿½union</option>
           <option value='RO'>Romania</option>
           <option value='RU'>Russian Federation</option>
           <option value='RW'>Rwanda</option>
-          <option value='BL'>Saint Barthélemy</option>
+          <option value='BL'>Saint Barthï¿½lemy</option>
           <option value='SH'>Saint Helena</option>
           <option value='KN'>Saint Kitts and Nevis</option>
           <option value='LC'>Saint Lucia</option>
@@ -535,7 +533,7 @@
         <select id="country3">
           <option value=""></option>
           <option value='AF'>Afghanistan</option>
-          <option value='AX'>Åland Islands</option>
+          <option value='AX'>ï¿½land Islands</option>
           <option value='AL'>Albania</option>
           <option value='DZ'>Algeria</option>
           <option value='AS'>American Samoa</option>
@@ -588,10 +586,10 @@
           <option value='CD'>Congo, Democratic Republic of</option>
           <option value='CK'>Cook Islands</option>
           <option value='CR'>Costa Rica</option>
-          <option value='CI'>Côte d'Ivoire</option>
+          <option value='CI'>Cï¿½te d'Ivoire</option>
           <option value='HR'>Croatia</option>
           <option value='CU'>Cuba</option>
-          <option value='CW'>Curaçao</option>
+          <option value='CW'>Curaï¿½ao</option>
           <option value='CY'>Cyprus</option>
           <option value='CZ'>Czech Republic</option>
           <option value='DK'>Denmark</option>
@@ -711,11 +709,11 @@
           <option value='PT'>Portugal</option>
           <option value='PR'>Puerto Rico</option>
           <option value='QA'>Qatar</option>
-          <option value='RE'>Réunion</option>
+          <option value='RE'>Rï¿½union</option>
           <option value='RO'>Romania</option>
           <option value='RU'>Russian Federation</option>
           <option value='RW'>Rwanda</option>
-          <option value='BL'>Saint Barthélemy</option>
+          <option value='BL'>Saint Barthï¿½lemy</option>
           <option value='SH'>Saint Helena</option>
           <option value='KN'>Saint Kitts and Nevis</option>
           <option value='LC'>Saint Lucia</option>
@@ -792,14 +790,9 @@
 
 
   <script type="text/javascript">
-    $('#country1').ssAC()
-    //$('#country2').ssAC()
-    //$('#country3').ssAC({ startsWith: true })
+    $('#country1').ssac()
 
-    $('#country3,#country2').SSAC2({
-      //fred: 'moo',
-      //kate:"cow"
-    })
+    $('#country3,#country2').ssac()
 
     $('#country2').on('change', function () {
       $('#select2text').val($(this).val());
