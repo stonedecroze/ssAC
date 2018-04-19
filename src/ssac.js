@@ -93,9 +93,10 @@
         }
 
         if (i.keyCode === 40) {//Down Arrow
-          var curval = $(divdropdown).find('.ssac-selected:visible').length;
+          var curval = $(divdropdown).find('.ssac-selected:visible');
+          console.log(curval.val(), curval);
           var newval = $(divdropdown).find('.ssac-selected').nextAll('div:visible').data('value');
-          if (curval === 0) {
+          if (curval.length === 0 || curval.data('value') === '') {
             newval = $(divdropdown).find('.ssac-item:visible').first().data('value');
             selectlist.val(newval).trigger('change');
             scrollIntoViewIfNeeded();
