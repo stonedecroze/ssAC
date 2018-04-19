@@ -37,11 +37,11 @@
           divlist = divlist + '<div class="ssac-item' + style + '" data-value="' + value + '">' + text + '</div>';
         }
       });
-      var divdropdown = $('<div class="ssac-outer" style="width:'+settings.width+'px">' +
+      var divdropdown = $('<div class="ssac-outer" style="width:' + settings.width + 'px">' +
         '<input class="ssac-input form-control" type="text" value="' + selectedtext + '" />' +
         '<div class="ssac-listparent">' +
         divclear +
-        '<div class="ssac-list' + hasclearstyle+'">' +
+        '<div class="ssac-list' + hasclearstyle + '">' +
         divlist +
         '</div>' +
         '</div>' +
@@ -79,7 +79,7 @@
       //key event
       //might need to beef this up by using key code opposed to name
       divdropdown.on('keyup', 'input', function (i) {
-        console.log(i.key, i.keyCode);
+        //console.log(i.key, i.keyCode);
 
         //keys we want to ignore
         if ([9, 16, 17, 18, 19, 20, 35, 36, 37, 39, 45, 91, 92, 93, 144, 145].indexOf(i.keyCode) > -1) {
@@ -93,9 +93,9 @@
         }
 
         if (i.keyCode === 40) {//Down Arrow
-          var curval = $(divdropdown).find('.ssac-selected').data('value');
+          var curval = $(divdropdown).find('.ssac-selected:visible').length;
           var newval = $(divdropdown).find('.ssac-selected').nextAll('div:visible').data('value');
-          if (curval === "") {
+          if (curval === 0) {
             newval = $(divdropdown).find('.ssac-item:visible').first().data('value');
             selectlist.val(newval).trigger('change');
             scrollIntoViewIfNeeded();
@@ -109,7 +109,6 @@
 
         if (i.keyCode === 38) { //UP arrow
           var newvalup = $(divdropdown).find('.ssac-selected').prevAll('div:visible').data('value');
-          console.log(newvalup);
           if (newvalup === null || newvalup === undefined) {
             if (divclear !== '') {
               selectlist.val('').trigger('change');
@@ -127,9 +126,6 @@
           $(divdropdown).find('.ssac-item').show();
           selectlist.val(newvalent).trigger('change');
           scrollIntoViewIfNeeded();
-          //var focused = findNextTabStop(document.activeElement);
-          //console.log(focused);
-          //focused.focus();
           return;
         }
 
@@ -153,7 +149,7 @@
         selectedtext = selectlist.find('option:selected').text();
         $(divdropdown).find('input').val(selectedtext);
         $(divdropdown).find('.ssac-selected').removeClass('ssac-selected');
-        $(divdropdown).find('[data-value="' + selectedvalue+'"]').addClass('ssac-selected');
+        $(divdropdown).find('[data-value="' + selectedvalue + '"]').addClass('ssac-selected');
       });
 
 
