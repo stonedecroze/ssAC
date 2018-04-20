@@ -76,22 +76,8 @@
         $(divdropdown).find('input').val(selectedtext);
       });
 
-      //key event
-      //might need to beef this up by using key code opposed to name
-      divdropdown.on('keyup', 'input', function (i) {
-        //console.log(i.key, i.keyCode);
-
-        //keys we want to ignore
-        if ([9, 16, 17, 18, 19, 20, 35, 36, 37, 39, 45, 91, 92, 93, 144, 145].indexOf(i.keyCode) > -1) {
-          i.preventDefault();
-          return;
-        }
-
-        if (i.keyCode === 27) {//escape
-          $(divdropdown).find('.ssac-listparent').hide();
-          return;
-        }
-
+     //KEY DOWN EVENTS, only cursor up and down
+      divdropdown.on('keydown', 'input', function (i) {
         if (i.keyCode === 40) {//Down Arrow
           var curval = $(divdropdown).find('.ssac-selected:visible');
           var newval = $(divdropdown).find('.ssac-selected').nextAll('div:visible').data('value');
@@ -118,6 +104,22 @@
           }
           selectlist.val(newvalup).trigger('change');
           scrollIntoViewIfNeeded();
+          return;
+        }
+      });
+
+      //KEY UP EVENTS
+      divdropdown.on('keyup', 'input', function (i) {
+        //console.log(i.key, i.keyCode);
+
+        //keys we want to ignore
+        if ([9, 16, 17, 18, 19, 20, 35, 36, 37, 38, 39, 40, 45, 91, 92, 93, 144, 145].indexOf(i.keyCode) > -1) {
+          i.preventDefault();
+          return;
+        }
+
+        if (i.keyCode === 27) {//escape
+          $(divdropdown).find('.ssac-listparent').hide();
           return;
         }
 
