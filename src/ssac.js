@@ -74,6 +74,7 @@
         $(divdropdown).find('.ssac-listparent').hide();
         selectedtext = selectlist.find('option:selected').text();
         $(divdropdown).find('input').val(selectedtext);
+        $(divdropdown).find('.ssac-item').show();
       });
 
      //KEY DOWN EVENTS, only cursor up and down
