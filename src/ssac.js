@@ -16,7 +16,9 @@
 
       var settings = $.extend({
         startsWith: false,
-        width: selectlist.outerWidth(true)
+        defaultValue: null,
+        width: selectlist.outerWidth(true),
+        onChange:null
       }, options);
 
       var divlist = '';
@@ -75,10 +77,17 @@
         selectedtext = selectlist.find('option:selected').text();
         $(divdropdown).find('input').val(selectedtext);
         $(divdropdown).find('.ssac-item').show();
+        settings.onChange();
       });
 
      //KEY DOWN EVENTS, only cursor up and down
       divdropdown.on('keydown', 'input', function (i) {
+
+        if (i.keyCode === 13) { //ENTER
+          i.preventDefault();
+          return;
+        }
+
         if (i.keyCode === 40) {//Down Arrow
           var curval = $(divdropdown).find('.ssac-selected:visible');
           var newval = $(divdropdown).find('.ssac-selected').nextAll('div:visible').data('value');
@@ -129,6 +138,7 @@
           $(divdropdown).find('.ssac-item').show();
           selectlist.val(newvalent).trigger('change');
           scrollIntoViewIfNeeded();
+          i.preventDefault();
           return;
         }
 
@@ -155,9 +165,13 @@
         $(divdropdown).find('[data-value="' + selectedvalue + '"]').addClass('ssac-selected');
       });
 
+      if (settings.defaultValue !== null) {
+        selectlist.val(settings.defaultValue).trigger('change');
+      }
 
       //HELPER functions
       function scrollIntoViewIfNeeded() {
+        if (selectlist.val() === '') { return;};
         var elem = $(divdropdown).find('.ssac-selected')[0];
         var container = $(divdropdown).find('.ssac-list')[0];
         var rectElem = elem.getBoundingClientRect();
@@ -167,7 +181,6 @@
       }
 
       //end
-      selectlist.css("color", "red");
     });
 
   };
