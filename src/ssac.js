@@ -84,6 +84,10 @@
       divdropdown.on('keydown', 'input', function (i) {
 
         if (i.keyCode === 13) { //ENTER
+          selectedtext = selectlist.find('option:selected').text();
+          $(divdropdown).find('input').val(selectedtext);
+          $(divdropdown).find('.ssac-item').show();
+          settings.onChange();
           i.preventDefault();
           return;
         }
